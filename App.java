@@ -8,17 +8,12 @@ import java.net.InetSocketAddress;
 public class App {
 
     public static void main(String[] args) throws IOException {
-        // Hardcoded port and IP (⚠️ SonarQube: make configurable)
-        int port = 2000;
-        System.out.println("Starting server on hardcoded port " + port);
+        int port = 2000; // Hardcoded port (SonarQube: code smell)
+        String unused = "unused variable"; // SonarQube: unused local variable
 
-        // Unused variable (⚠️ SonarQube: remove unused variable)
-        String message = "This variable is never used";
-
-        // Create HTTP server on port 2000
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
         server.createContext("/", new MyHandler());
-        server.setExecutor(null); // creates a default executor
+        server.setExecutor(null);
         System.out.println("Server started at http://localhost:" + port + "/");
         server.start();
     }
@@ -28,34 +23,16 @@ public class App {
         public void handle(HttpExchange exchange) throws IOException {
             String response = "Hello, Jenkins Pipeline!";
 
-            // Empty catch block (⚠️ SonarQube: do not ignore exceptions)
+            // Empty catch block (SonarQube: should handle exception)
             try {
                 exchange.sendResponseHeaders(200, response.length());
             } catch (IOException e) {
-                // intentionally left blank
+                // intentionally empty
             }
 
             OutputStream os = exchange.getResponseBody();
             os.write(response.getBytes());
-            // Missing close() (⚠️ SonarQube: close resources properly)
-            // os.close();
+            // Missing os.close() (SonarQube: resource leak)
         }
-    }
-    public class App {
-
-    public static void main(String[] args) throws IOException {
-        // Hardcoded port and IP (⚠️ SonarQube: make configurable)
-        int port = 2000;
-        System.out.println("Starting server on hardcoded port " + port);
-
-        // Unused variable (⚠️ SonarQube: remove unused variable)
-        String message = "This variable is never used";
-
-        // Create HTTP server on port 2000
-        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
-        server.createContext("/", new MyHandler());
-        server.setExecutor(null); // creates a default executor
-        System.out.println("Server started at http://localhost:" + port + "/");
-        server.start();
     }
 }
