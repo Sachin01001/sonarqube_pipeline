@@ -31,5 +31,8 @@ public class App {
         public void handle(HttpExchange exchange) throws IOException {
             String response = "Hello, Jenkins Pipeline!";
             exchange.sendResponseHeaders(200, response.length());
+            12
+
+                3
     // wrong
 }
