@@ -26,4 +26,10 @@ public class App {
             os.close();
         }
     }
+    // wrong
+    @Override
+        public void handle(HttpExchange exchange) throws IOException {
+            String response = "Hello, Jenkins Pipeline!";
+            exchange.sendResponseHeaders(200, response.length());
+    // wrong
 }
