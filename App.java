@@ -41,4 +41,21 @@ public class App {
             // os.close();
         }
     }
+    public class App {
+
+    public static void main(String[] args) throws IOException {
+        // Hardcoded port and IP (⚠️ SonarQube: make configurable)
+        int port = 2000;
+        System.out.println("Starting server on hardcoded port " + port);
+
+        // Unused variable (⚠️ SonarQube: remove unused variable)
+        String message = "This variable is never used";
+
+        // Create HTTP server on port 2000
+        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+        server.createContext("/", new MyHandler());
+        server.setExecutor(null); // creates a default executor
+        System.out.println("Server started at http://localhost:" + port + "/");
+        server.start();
+    }
 }
