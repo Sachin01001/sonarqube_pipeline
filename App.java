@@ -27,14 +27,4 @@ public class App {
         }
     }
 
-// package com.example;
 
-// public class Sample {
-//     public static void main(String[] args) {
-//         System.out.println("Hello"); // Non-compliant — should use a logger instead
-//         int x = 10 / 0;              // Non-compliant — possible division by zero
-//     }
-// }
-
-    
-// // }
