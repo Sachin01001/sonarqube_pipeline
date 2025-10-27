@@ -1,10 +1,30 @@
-import java.math.BigDecimal;
+import com.sun.net.httpserver.HttpServer;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpExchange;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
 
-public class Demo {
+public class App {
 
-    public void test() {
-        BigDecimal bd = new BigDecimal(0.1); // Bug: use BigDecimal.valueOf instead
-        String a = "hello";
-        if (a == "hello") { } // Code smell: == used on String
+    public static void main(String[] args) throws IOException {
+        // Create HTTP server on port 2000
+        HttpServer server = HttpServer.create(new InetSocketAddress(2000), 0);
+        server.createContext("/", new MyHandler());
+        server.setExecutor(null); // creates a default executor
+        System.out.println("Server started at http://localhost:2000/");
+        server.start();
     }
+
+    static class MyHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+            String response = "Hello, Jenkins Pipeline!";
+            exchange.sendResponseHeaders(200, response.length());
+            OutputStream os = exchange.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        }
+    }
+    
 }
